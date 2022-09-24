@@ -1,29 +1,15 @@
 package org.apache.zookeeper.inspector;
 
-import java.awt.Dimension;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import javax.accessibility.AccessibleContext;
 import javax.accessibility.AccessibleRole;
-import javax.swing.DefaultListModel;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.ListModel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import java.awt.*;
+import java.awt.event.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class ListInput extends JPanel implements ListSelectionListener,
     ActionListener {
@@ -50,35 +36,32 @@ public class ListInput extends JPanel implements ListSelectionListener,
     scrollPane = new JScrollPane(list);
     scrollPane.setVisible(false);
     add(scrollPane);
-    
+
     textfield.addKeyListener(new KeyListener() {
-      
+
       @Override
-      public void keyTyped(KeyEvent e)
-      {
+      public void keyTyped(KeyEvent e) {
         // TODO Auto-generated method stub
         scrollPane.setVisible(true);
       }
-      
+
       @Override
-      public void keyReleased(KeyEvent e)
-      {
+      public void keyReleased(KeyEvent e) {
         // TODO Auto-generated method stub
-        
+
       }
-      
+
       @Override
-      public void keyPressed(KeyEvent e)
-      {
+      public void keyPressed(KeyEvent e) {
         // TODO Auto-generated method stub
 //      System.out.println("keyPressed: " + e.getKeyCode());
         switch (e.getKeyCode()) {
-        case KeyEvent.VK_ENTER:
-        case KeyEvent.VK_ESCAPE:
-          scrollPane.setVisible(false);
-          break;
-        default:
-          break;
+          case KeyEvent.VK_ENTER:
+          case KeyEvent.VK_ESCAPE:
+            scrollPane.setVisible(false);
+            break;
+          default:
+            break;
         }
 
       }
@@ -101,6 +84,26 @@ public class ListInput extends JPanel implements ListSelectionListener,
     add(scrollPane);
   }
 
+  public static void main(String[] a) {
+    String[] fontNames = new String[]{"Roman", "Times Roman"};
+    ListInput lstFontName = new ListInput(fontNames, "Name:");
+    lstFontName.setDisplayedMnemonic('n');
+    lstFontName.setToolTipText("Font name");
+    JFrame f = new JFrame();
+    f.addWindowListener(new WindowAdapter() {
+      @Override
+      public void windowClosing(WindowEvent e) {
+        System.exit(0);
+      }
+    });
+    f.getContentPane().add(lstFontName);
+
+    f.pack();
+    f.setSize(new Dimension(300, 200));
+    f.show();
+
+  }
+
   @Override
   public void setToolTipText(String text) {
     super.setToolTipText(text);
@@ -113,17 +116,13 @@ public class ListInput extends JPanel implements ListSelectionListener,
     label.setDisplayedMnemonic(ch);
   }
 
-  public void setSelected(String sel) {
-    list.setSelectedValue(sel, true);
-    textfield.setText(sel);
-  }
-
   public String getSelected() {
     return textfield.getText();
   }
 
-  public void setSelectedInt(int value) {
-    setSelected(Integer.toString(value));
+  public void setSelected(String sel) {
+    list.setSelectedValue(sel, true);
+    textfield.setText(sel);
   }
 
   public int getSelectedInt() {
@@ -132,6 +131,10 @@ public class ListInput extends JPanel implements ListSelectionListener,
     } catch (NumberFormatException ex) {
       return -1;
     }
+  }
+
+  public void setSelectedInt(int value) {
+    setSelected(Integer.toString(value));
   }
 
   @Override
@@ -199,7 +202,7 @@ public class ListInput extends JPanel implements ListSelectionListener,
   }
 
   public void appendResultSet(ResultSet results, int index,
-      boolean toTitleCase) {
+                              boolean toTitleCase) {
     textfield.setText("");
     DefaultListModel model = new DefaultListModel();
     try {
@@ -213,11 +216,19 @@ public class ListInput extends JPanel implements ListSelectionListener,
         model.addElement(str);
       }
     } catch (SQLException ex) {
-      System.err.println("appendResultSet: " + ex.toString());
+      System.err.println("appendResultSet: " + ex);
     }
     list.setModel(model);
     if (model.getSize() > 0)
       list.setSelectedIndex(0);
+  }
+
+  // Accessibility Support
+  @Override
+  public AccessibleContext getAccessibleContext() {
+    if (accessibleContext == null)
+      accessibleContext = new AccessibleOpenList();
+    return accessibleContext;
   }
 
   class ListInputLabel extends JLabel {
@@ -259,14 +270,6 @@ public class ListInput extends JPanel implements ListSelectionListener,
     }
   }
 
-  // Accessibility Support
-  @Override
-  public AccessibleContext getAccessibleContext() {
-    if (accessibleContext == null)
-      accessibleContext = new AccessibleOpenList();
-    return accessibleContext;
-  }
-
   protected class AccessibleOpenList extends AccessibleJComponent {
 
     @Override
@@ -281,26 +284,6 @@ public class ListInput extends JPanel implements ListSelectionListener,
     public AccessibleRole getAccessibleRole() {
       return AccessibleRole.LIST;
     }
-  }
-
-  public static void main(String[] a) {
-    String[] fontNames = new String[] { "Roman", "Times Roman" };
-    ListInput lstFontName = new ListInput(fontNames, "Name:");
-    lstFontName.setDisplayedMnemonic('n');
-    lstFontName.setToolTipText("Font name");
-    JFrame f = new JFrame();
-    f.addWindowListener(new WindowAdapter() {
-      @Override
-      public void windowClosing(WindowEvent e) {
-        System.exit(0);
-      }
-    });
-    f.getContentPane().add(lstFontName);
-    
-    f.pack();
-    f.setSize(new Dimension(300, 200));
-    f.show();
-
   }
 
 }

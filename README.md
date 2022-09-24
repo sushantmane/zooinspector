@@ -1,7 +1,7 @@
 zooinspector
 ============
 
-An improved zookeeper inspector
+#### An improved zookeeper inspector
 
 - Use async operations to speed up read
 - Znodes sorted by names in tree viewer
@@ -10,11 +10,24 @@ An improved zookeeper inspector
 - Support text search in node data viewer
 - Support read-only mode for node data viewer
 
-Build
-- $git clone https://github.com/zzhang5/zooinspector.git
-- $cd zooinspector/
-- $mvn clean package
+#### Build
+```bash
+git clone https://github.com/sushantmane/zooinspector.git
+```
 
-Run
-- $chmod +x target/zooinspector-pkg/bin/zooinspector.sh
-- $target/zooinspector-pkg/bin/zooinspector.sh
+```bash
+cd zooinspector
+```
+
+```bash
+mvn clean package
+```
+
+#### Run
+```bash
+chmod +x target/zooinspector-pkg/bin/zooinspector.sh
+```
+
+```bash
+target/zooinspector-pkg/bin/zooinspector.sh
+```

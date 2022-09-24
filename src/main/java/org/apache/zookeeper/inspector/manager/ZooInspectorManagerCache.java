@@ -1,47 +1,31 @@
 package org.apache.zookeeper.inspector.manager;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.data.Stat;
-import org.apache.zookeeper.inspector.logger.LoggerFactory;
 
-public class ZooInspectorManagerCache
-{
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+
+public class ZooInspectorManagerCache {
+
+  private static final Logger LOG = LogManager.getLogger(ZooInspectorManagerCache.class);
+
   final Map<String, Item> cache;
   ZooInspectorManagerImpl manager;
 
-  static class Item
-  {
-    List<String> childs;
-    Stat zkStat;
-
-    public Item(List<String> childs, Stat zkStat)
-    {
-      this.childs = childs;
-      this.zkStat = zkStat;
-    }
-  }
-
-  public ZooInspectorManagerCache(ZooInspectorManagerImpl manager)
-  {
+  public ZooInspectorManagerCache(ZooInspectorManagerImpl manager) {
     this.manager = manager;
-    this.cache = new ConcurrentHashMap<String, Item>();
+    this.cache = new ConcurrentHashMap<>();
   }
 
   /**
-   *
    * @param paths to update
    * @param depth to go
    * @throws KeeperException
    */
-  public void refresh(List<String> paths, int depth) throws KeeperException
-  {
+  public void refresh(List<String> paths, int depth) throws KeeperException {
     if (depth < 0) {
       return;
     }
@@ -52,7 +36,7 @@ public class ZooInspectorManagerCache
 
     Map<String, Item> childItems = manager.getChildren(paths);
 
-    List<String> childPaths = new ArrayList<String>();
+    List<String> childPaths = new ArrayList<>();
 
     // for (String path : paths) {
     for (int i = 0; i < paths.size(); i++) {
@@ -78,11 +62,10 @@ public class ZooInspectorManagerCache
     }
   }
 
-  public String getNodeChild(String nodePath, int childIndex)
-  {
+  public String getNodeChild(String nodePath, int childIndex) {
     if (!cache.containsKey(nodePath)) {
-    // if (!manager.watchers.containsKey(nodePath)) {
-      LoggerFactory.getLogger().error("CACHE MISS! getNodeChild(). path: " + nodePath);
+      // if (!manager.watchers.containsKey(nodePath)) {
+      LOG.error("CACHE MISS! getNodeChild(). path: {}", nodePath);
 
       return null;
     }
@@ -94,11 +77,10 @@ public class ZooInspectorManagerCache
     return childs.get(childIndex);
   }
 
-  public int getNumChildren(String nodePath)
-  {
+  public int getNumChildren(String nodePath) {
     if (!cache.containsKey(nodePath)) {
-    // if (!manager.watchers.containsKey(nodePath)) {
-      LoggerFactory.getLogger().error("CACHE MISS! getNumChildren(). path: " + nodePath);
+      // if (!manager.watchers.containsKey(nodePath)) {
+      LOG.error("CACHE MISS! getNumChildren(). path: {}", nodePath);
       return 0;
     }
     Item item = cache.get(nodePath);
@@ -110,8 +92,8 @@ public class ZooInspectorManagerCache
 
   public List<String> getChildren(String nodePath) {
     if (!cache.containsKey(nodePath)) {
-    // if (!manager.watchers.containsKey(nodePath)) {
-      LoggerFactory.getLogger().error("CACHE MISS! getChildren(). path: " + nodePath);
+      // if (!manager.watchers.containsKey(nodePath)) {
+      LOG.error("CACHE MISS! getChildren(). path: " + nodePath);
       return Collections.emptyList();
     }
     // sort it
@@ -125,6 +107,7 @@ public class ZooInspectorManagerCache
 
   /**
    * remove all cached items start with prefix
+   *
    * @param prefix
    */
   public void removePrefix(String prefix) {
@@ -135,6 +118,16 @@ public class ZooInspectorManagerCache
       if (path.startsWith(prefix)) {
         iter.remove();
       }
+    }
+  }
+
+  static class Item {
+    List<String> childs;
+    Stat zkStat;
+
+    public Item(List<String> childs, Stat zkStat) {
+      this.childs = childs;
+      this.zkStat = zkStat;
     }
   }
 }
