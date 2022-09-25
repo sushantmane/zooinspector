@@ -13,24 +13,28 @@ This is fork of: https://github.com/zzhang5/zooinspector
 - Support text search in node data viewer
 - Support read-only mode for node data viewer
 
-#### Build
+
+### Download and Run zooinspector executable jar
+
+```shell
+wget https://github.com/sushantmane/zooinspector/releases/download/v0.0.4/zooinspector-1.0-SNAPSHOT-all.jar
+```
+```shell
+java -jar zooinspector-1.0-SNAPSHOT-all.jar
+```
+
+
+
+### To Build and Run on local system
 ```bash
 git clone https://github.com/sushantmane/zooinspector.git
 ```
-
 ```bash
 cd zooinspector
 ```
-
 ```bash
 mvn clean package
 ```
-
-#### Run
 ```bash
-chmod +x target/zooinspector-pkg/bin/zooinspector.sh
-```
-
-```bash
-target/zooinspector-pkg/bin/zooinspector.sh
+java -jar target/zooinspector-1.0-SNAPSHOT-all.jar 
 ```
