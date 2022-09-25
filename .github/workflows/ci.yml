@@ -19,7 +19,7 @@ jobs:
         run: mvn --batch-mode --update-snapshots clean package
 
       - name: package artifacts
-        run:  mkdir staging && find */target/* -name "zooinspector-*-all.jar" -exec cp "{}" staging \;
+        run:  mkdir staging && find . -name "zooinspector-*-all.jar" -exec cp "{}" staging \;
 
       - uses: actions/upload-artifact@v3
         with:
