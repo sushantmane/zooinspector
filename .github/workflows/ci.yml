@@ -16,13 +16,4 @@ jobs:
           distribution: 'adopt'
 
       - name: Build with Maven
-        run: mvn --batch-mode --update-snapshots clean package
-
-      - name: package artifacts
-        run:  mkdir staging && find . -name "zooinspector-*-all.jar" -exec cp "{}" staging \;
-
-      - uses: actions/upload-artifact@v3
-        with:
-          name: Package
-          path: staging
-
+        run: mvn --batch-mode --update-snapshots clean compile
