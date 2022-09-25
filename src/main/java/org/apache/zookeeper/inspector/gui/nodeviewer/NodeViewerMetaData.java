@@ -17,10 +17,10 @@
  */
 package org.apache.zookeeper.inspector.gui.nodeviewer;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.zookeeper.data.Stat;
 import org.apache.zookeeper.inspector.manager.ZooInspectorNodeManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,7 +36,7 @@ import java.util.concurrent.ExecutionException;
  */
 public class NodeViewerMetaData extends ZooInspectorNodeViewer {
 
-  private static final Logger LOG = LogManager.getLogger(NodeViewerMetaData.class);
+  private static final Logger LOG = LoggerFactory.getLogger(NodeViewerMetaData.class);
   private final JPanel metaDataPanel;
   private ZooInspectorNodeManager zooInspectorManager;
   // private String selectedNode;

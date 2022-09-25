@@ -75,14 +75,10 @@ public class ZooInspectorTreeViewer extends JPanel implements NodeListener,
     this.toasterManager.setBorderColor(Color.BLACK);
     this.toasterManager.setMessageColor(Color.BLACK);
     this.toasterManager.setToasterColor(Color.WHITE);
-    addNotify.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        System.out.println("addNotify action_performed()");
-        List<String> selectedNodes = getSelectedNodes();
-        zooInspectorManager.addWatchers(selectedNodes,
-            ZooInspectorTreeViewer.this);
-      }
+    addNotify.addActionListener(e -> {
+      List<String> selectedNodes = getSelectedNodes();
+      zooInspectorManager.addWatchers(selectedNodes,
+          ZooInspectorTreeViewer.this);
     });
     final JMenuItem removeNotify = new JMenuItem(
         "Remove Change Notification");

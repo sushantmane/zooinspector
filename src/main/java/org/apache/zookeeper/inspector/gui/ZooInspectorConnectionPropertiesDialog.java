@@ -17,9 +17,9 @@
  */
 package org.apache.zookeeper.inspector.gui;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.zookeeper.inspector.manager.Pair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,7 +42,7 @@ import java.util.Properties;
  */
 public class ZooInspectorConnectionPropertiesDialog extends JDialog {
 
-  private static final Logger LOG = LogManager.getLogger(ZooInspectorConnectionPropertiesDialog.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ZooInspectorConnectionPropertiesDialog.class);
   private final HashMap<String, JComponent> components;
 
   /**

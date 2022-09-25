@@ -17,10 +17,11 @@
  */
 package org.apache.zookeeper.inspector.gui;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
 import org.apache.zookeeper.inspector.gui.nodeviewer.ZooInspectorNodeViewer;
 import org.apache.zookeeper.inspector.manager.ZooInspectorManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -41,7 +42,7 @@ import java.util.List;
  */
 public class ZooInspectorNodeViewersDialog extends JDialog implements ListSelectionListener {
 
-  private static final Logger LOG = LogManager.getLogger(ZooInspectorNodeViewersDialog.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ZooInspectorNodeViewersDialog.class);
   private final JButton upButton;
   private final JButton downButton;
   private final JButton removeButton;

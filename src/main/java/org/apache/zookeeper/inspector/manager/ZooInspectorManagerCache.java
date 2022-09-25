@@ -1,16 +1,16 @@
 package org.apache.zookeeper.inspector.manager;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.data.Stat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ZooInspectorManagerCache {
 
-  private static final Logger LOG = LogManager.getLogger(ZooInspectorManagerCache.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ZooInspectorManagerCache.class);
 
   final Map<String, Item> cache;
   ZooInspectorManagerImpl manager;
@@ -98,10 +98,7 @@ public class ZooInspectorManagerCache {
     }
     // sort it
     List<String> childs = cache.get(nodePath).childs;
-    // List<String> childs = manager.watchers.get(nodePath).getChilds();
     Collections.sort(childs);
-    // System.out.println("getChilds: " + childs);
-
     return childs;
   }
 
@@ -112,7 +109,6 @@ public class ZooInspectorManagerCache {
    */
   public void removePrefix(String prefix) {
     Iterator<Map.Entry<String, Item>> iter = cache.entrySet().iterator();
-    // Iterator<Map.Entry<String, NodeWatcher>> iter = manager.watchers.entrySet().iterator(); // cache.entrySet().iterator();
     while (iter.hasNext()) {
       String path = iter.next().getKey();
       if (path.startsWith(prefix)) {

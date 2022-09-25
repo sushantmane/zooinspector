@@ -54,7 +54,6 @@ public class ListInput extends JPanel implements ListSelectionListener,
       @Override
       public void keyPressed(KeyEvent e) {
         // TODO Auto-generated method stub
-//      System.out.println("keyPressed: " + e.getKeyCode());
         switch (e.getKeyCode()) {
           case KeyEvent.VK_ENTER:
           case KeyEvent.VK_ESCAPE:
@@ -100,8 +99,7 @@ public class ListInput extends JPanel implements ListSelectionListener,
 
     f.pack();
     f.setSize(new Dimension(300, 200));
-    f.show();
-
+    f.setVisible(true);
   }
 
   @Override

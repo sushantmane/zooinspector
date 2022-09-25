@@ -17,8 +17,8 @@
  */
 package org.apache.zookeeper.inspector.gui;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,7 +30,7 @@ import java.net.URL;
  */
 public class ZooInspectorAboutDialog extends JDialog {
 
-  private static final Logger LOG = LogManager.getLogger(ZooInspectorAboutDialog.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ZooInspectorAboutDialog.class);
 
   /**
    * @param frame - the Frame from which the dialog is displayed

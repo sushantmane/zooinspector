@@ -17,13 +17,12 @@
  */
 package org.apache.zookeeper.inspector;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.zookeeper.inspector.gui.ZooInspectorPanel;
 import org.apache.zookeeper.inspector.manager.ZooInspectorManagerImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -32,7 +31,7 @@ import java.awt.event.WindowEvent;
  */
 public class ZooInspector {
 
-  private static final Logger LOG = LogManager.getLogger(ZooInspector.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ZooInspector.class);
 
   /**
    * @param args - not used. The value of these parameters will have no effect
@@ -40,19 +39,9 @@ public class ZooInspector {
    */
   public static void main(String[] args) {
     try {
-//          Dimension screenSize = getScreenResolution();
-//          int screenWidth = screenSize.width;
-//          int screenHeight = screenSize.height;
-      // System.out.println("screenWidth: " + screenWidth + ", screenHeight: " + screenHeight);
-
-
       UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
       JFrame frame = new JFrame("ZooInspector");
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-      // debug
-//            frame.setSize(screenWidth * 2 / 3, screenHeight);
-//            frame.setVisible(true);
 
       final ZooInspectorPanel zooInspectorPanel = new ZooInspectorPanel(
           new ZooInspectorManagerImpl());
@@ -66,7 +55,6 @@ public class ZooInspector {
 
       frame.setContentPane(zooInspectorPanel);
       frame.setSize(1024, 768);
-//            frame.setSize(screenWidth * 2 / 3, screenHeight);
       frame.setVisible(true);
     } catch (Exception e) {
       LOG.error("Error occurred loading ZooInspector", e);
@@ -74,24 +62,6 @@ public class ZooInspector {
           "ZooInspector failed to start: " + e.getMessage(), "Error",
           JOptionPane.ERROR_MESSAGE);
     }
-  }
-
-  private static Dimension getScreenResolution() {
-    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-    GraphicsDevice[] screenDevices = ge.getScreenDevices();
-
-    for (int i = 0; i < screenDevices.length; i++) {
-      System.out.println(screenDevices[i].getIDstring());
-
-      DisplayMode dm = screenDevices[i].getDisplayMode();
-      int screenWidth = dm.getWidth();
-      int screenHeight = dm.getHeight();
-
-      System.out.println("Cake: " + screenWidth + " " + screenHeight);
-      return new Dimension(screenWidth, screenHeight);
-    }
-
-    return null;
   }
 
 }

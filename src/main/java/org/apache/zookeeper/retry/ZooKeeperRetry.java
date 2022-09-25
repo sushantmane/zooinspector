@@ -17,14 +17,14 @@
  */
 package org.apache.zookeeper.retry;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.data.ACL;
 import org.apache.zookeeper.data.Stat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ import java.util.List;
  */
 public class ZooKeeperRetry extends ZooKeeper {
 
-  private static final Logger LOG = LogManager.getLogger(ZooKeeperRetry.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ZooKeeperRetry.class);
   private final Watcher watcher;
   private boolean closed = false;
   private int limit = -1;

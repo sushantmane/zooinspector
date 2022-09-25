@@ -17,8 +17,6 @@
  */
 package org.apache.zookeeper.inspector.manager;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.zookeeper.*;
 import org.apache.zookeeper.KeeperException.NoNodeException;
 import org.apache.zookeeper.Watcher.Event.EventType;
@@ -32,6 +30,8 @@ import org.apache.zookeeper.inspector.encryption.BasicDataEncryptionManager;
 import org.apache.zookeeper.inspector.encryption.DataEncryptionManager;
 import org.apache.zookeeper.inspector.manager.ZooInspectorManagerCache.Item;
 import org.apache.zookeeper.retry.ZooKeeperRetry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -44,7 +44,7 @@ import java.util.concurrent.*;
  */
 public class ZooInspectorManagerImpl implements ZooInspectorManager {
 
-  private static final Logger LOG = LogManager.getLogger(ZooInspectorManagerImpl.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ZooInspectorManagerImpl.class);
 
   /**
    * The key used for the connect string in the connection properties file

@@ -17,12 +17,12 @@
  */
 package org.apache.zookeeper.inspector.gui.nodeviewer;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.zookeeper.ZooKeeper.States;
 import org.apache.zookeeper.inspector.gui.NodeDataViewerFindDialog;
 import org.apache.zookeeper.inspector.gui.ZooInspectorIconResources;
 import org.apache.zookeeper.inspector.manager.ZooInspectorNodeManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
@@ -30,11 +30,8 @@ import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.DefaultHighlighter.DefaultHighlightPainter;
 import javax.swing.text.DefaultStyledDocument;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.geom.Rectangle2D;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -43,7 +40,7 @@ import java.util.concurrent.ExecutionException;
  */
 public class NodeViewerData extends ZooInspectorNodeViewer {
 
-  private static final Logger LOG = LogManager.getLogger(NodeViewerData.class);
+  private static final Logger LOG = LoggerFactory.getLogger(NodeViewerData.class);
 
   private final JTextPane dataArea;
   private final DefaultHighlighter highlighter;
@@ -165,7 +162,7 @@ public class NodeViewerData extends ZooInspectorNodeViewer {
       contText = document.getText(0, document.getLength());
       contText = contText.toLowerCase();
     } catch (BadLocationException ex) {
-      LOG.error(ex);
+      LOG.error("Caught an exception: ", ex);
     }
 
     int index = -1;
@@ -178,7 +175,7 @@ public class NodeViewerData extends ZooInspectorNodeViewer {
         highlighter.addHighlight(index, selText.length() + index, hPainter);
         index = index + selText.length();
       } catch (BadLocationException ex) {
-        LOG.error(ex);
+        LOG.error("Caught an exception: ", ex);
       }
     }
 

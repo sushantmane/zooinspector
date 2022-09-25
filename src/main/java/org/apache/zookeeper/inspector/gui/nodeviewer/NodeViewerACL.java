@@ -17,9 +17,9 @@
  */
 package org.apache.zookeeper.inspector.gui.nodeviewer;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.zookeeper.inspector.manager.ZooInspectorNodeManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,7 +33,7 @@ import java.util.concurrent.ExecutionException;
  */
 public class NodeViewerACL extends ZooInspectorNodeViewer {
 
-  private static final Logger LOG = LogManager.getLogger(NodeViewerACL.class);
+  private static final Logger LOG = LoggerFactory.getLogger(NodeViewerACL.class);
   private final JPanel aclDataPanel;
   private ZooInspectorNodeManager zooInspectorManager;
   private String selectedNode;

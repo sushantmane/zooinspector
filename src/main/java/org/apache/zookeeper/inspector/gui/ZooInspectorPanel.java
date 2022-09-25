@@ -17,11 +17,11 @@
  */
 package org.apache.zookeeper.inspector.gui;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.zookeeper.ZooKeeper.States;
 import org.apache.zookeeper.inspector.gui.nodeviewer.ZooInspectorNodeViewer;
 import org.apache.zookeeper.inspector.manager.ZooInspectorManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,7 +38,7 @@ import java.util.concurrent.ExecutionException;
  */
 public class ZooInspectorPanel extends JPanel implements NodeViewersChangeListener {
 
-  private static final Logger LOG = LogManager.getLogger(ZooInspectorPanel.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ZooInspectorPanel.class);
 
   private final JButton refreshButton;
   private final JButton disconnectButton;
